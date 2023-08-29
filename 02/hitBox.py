@@ -13,33 +13,33 @@
 #funções úteis
 
 #opção alternativa: comparar x separadamente e depois y separadamente.
-def interseptCheck(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
-    if(((e2x0 <= e1x1) and (e2y0 <= e1y1)) or ((e2x1 >= e1x0) and (e2y1 >= e1y0))):
+def interseptCheck(e1=[0,0,0,0], e2 = [0,0,0,0]):
+    if(((e2[0] <= e1[2]) and (e2[1] <= e1[3])) or ((e2[2] >= e1[0]) and (e2[3] >= e1[1]))):
         return True
     else: 
         return False
 
-def linearOverlap(e1x0, e1x1, e2x0, e2x1):
-    if (e1x0 >= e2x0):
-        x0 = e1x0
-    else: x0 = e2x0
-    if (e1x1 > e2x1):
-        x1 = e2x1
-    else: x1 = e1x1
-    return [x0, x1]
+def linearOverlap(e1, e2):
+    if (e1[0] >= e2[0]):
+        valorInicial = e1[0]
+    else: valorInicial = e2[0]
+    if (e1[1] >= e2[1]):
+        valorFinal = e2[1]
+    else: valorFinal = e1[1]
+    return [valorInicial, valorFinal]
 
-def overlapCalc(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
-    coordX = linearOverlap(e1x0, e1x1, e2x0, e2x1)
-    coordY = linearOverlap(e1y0, e1y1, e2y0, e2y1)
-    return coordX.extend(coordY)
+def areaOverlap(e1, e2):
+    coordX = linearOverlap(e1[0], e1[2], e2[0], e2[2])
+    coordY = linearOverlap(e1[1], e1[3], e2[1], e2[3])
+    listafinal = [coordX[0], coordY[0], coordX[1], coordY[1]]
+    return listafinal
 
-def resultPrinter(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
+def WordsOfRadiance(e1, e2):
     if(interseptCheck(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1)):
-        print("HIT: {} {} {} {}".join(overlapCalc(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1)))
+        print("HIT: {} {} {} {}".join(areaOverlap(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1)))
     else:
         print("MISS")
 
-
 # Entradas das coordenadas
-entradaUm = input()
-entradaDois = input()
+entradaUm = input().split()
+entradaDois = input().split()
