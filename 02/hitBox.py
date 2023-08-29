@@ -17,16 +17,16 @@ def inputConverter(listaCoordenadas):
     obs = [int(numero) for numero in listaCoordenadas]
     return obs
 
-def finalCoord(entrada):
+#separa as entradas em suas correspondêntes dimensões
+def axis(entrada):
+    return ([entrada[0],entrada[2]], [entrada[1], entrada[3]])
+
+#converte largura e altura em posição final.
+def coords(entrada):
     x, y = axis(entrada)
     finalX = x[0] + x[1]
     finalY = y[0] + y[1]
     return([x[0], finalX], [y[0], finalY])
-
-
-#separa as entradas em suas correspondêntes dimensões
-def axis(entrada):
-    return ([entrada[0],entrada[2]], [entrada[1], entrada[3]])
 
 #avalia se há sobreposição
 def interseptCheck(x1, x2, y1, y2):
@@ -42,7 +42,10 @@ def linearOverlap(regiao_obj_1, regiao_obj_2):
     else: valorInicial = regiao_obj_2[0]
     if (regiao_obj_1[1] >= regiao_obj_2[1]):
         valorFinal = regiao_obj_2[1]
-    else: valorFinal = regiao_obj_1[1]
+        valorFinal = valorFinal - regiao_obj_1[1]
+    else: 
+        valorFinal = regiao_obj_1[1]
+        valorFinal = valorFinal - regiao_obj_1[1]
     return [valorInicial, valorFinal]
 
 #devolve as coordenadas da região de sobreposição no formato x_inicial, y_inicial, x_final, y_final
@@ -54,8 +57,8 @@ def hitBox(x1, x2, y1, y2):
 
 #função final que chama tudo
 def WordsOfRadiance(e1, e2):
-    x1, y1 = axis(e1)
-    x2, y2 = axis(e2)
+    x1, y1 = coords(e1)
+    x2, y2 = coords(e2)
     if(interseptCheck(x1, x2, y1, y2)):
         print("HIT: {}".join(hitBox(x1, x2, y1, y2)))
     else:
