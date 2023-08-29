@@ -28,9 +28,10 @@ def linearOverlap(e1x0, e1x1, e2x0, e2x1):
     else: x1 = e1x1
     return [x0, x1]
 
-
 def overlapCalc(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
-    s
+    coordX = linearOverlap(e1x0, e1x1, e2x0, e2x1)
+    coordY = linearOverlap(e1y0, e1y1, e2y0, e2y1)
+    return coordX.extend(coordY)
 
 def resultPrinter(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
     if(interseptCheck(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1)):
