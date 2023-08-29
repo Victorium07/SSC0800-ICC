@@ -13,12 +13,19 @@
 #funções úteis
 
 #converte a lista de str em int
-def conversorEntradas(listaCoordenadas):
+def inputConverter(listaCoordenadas):
     obs = [int(numero) for numero in listaCoordenadas]
     return obs
 
+def finalCoord(entrada):
+    x, y = axis(entrada)
+    finalX = x[0] + x[1]
+    finalY = y[0] + y[1]
+    return([x[0], finalX], [y[0], finalY])
+
+
 #separa as entradas em suas correspondêntes dimensões
-def eixo(entrada):
+def axis(entrada):
     return ([entrada[0],entrada[2]], [entrada[1], entrada[3]])
 
 #avalia se há sobreposição
@@ -42,20 +49,20 @@ def linearOverlap(regiao_obj_1, regiao_obj_2):
 def hitBox(x1, x2, y1, y2):
     coordX = linearOverlap(x1, x2)
     coordY = linearOverlap(y1, y2)
-    listafinal = [coordX[0], coordY[0], coordX[1], coordY[1]]
+    listafinal = [str(coordX[0]), str(coordY[0]), str(coordX[1]), str(coordY[1])]
     return listafinal
 
 #função final que chama tudo
 def WordsOfRadiance(e1, e2):
-    x1, y1 = eixo(e1)
-    x2, y2 = eixo(e2)
+    x1, y1 = axis(e1)
+    x2, y2 = axis(e2)
     if(interseptCheck(x1, x2, y1, y2)):
-        print("HIT: {} {} {} {}".join(hitBox(x1, x2, y1, y2)))
+        print("HIT: {}".join(hitBox(x1, x2, y1, y2)))
     else:
         print("MISS")
 
 # Entradas
-entradaUm = conversorEntradas(input().split())
-entradaDois = conversorEntradas(input().split())
+entradaUm = inputConverter(input().split())
+entradaDois = inputConverter(input().split())
 
 WordsOfRadiance(entradaUm, entradaDois)
