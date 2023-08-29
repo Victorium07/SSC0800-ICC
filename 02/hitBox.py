@@ -11,8 +11,6 @@
 #         self.y1 = data[3]
 
 #funções úteis
-def overlapCalc(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
-    
 
 #opção alternativa: comparar x separadamente e depois y separadamente.
 def interseptCheck(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
@@ -21,6 +19,18 @@ def interseptCheck(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
     else: 
         return False
 
+def linearOverlap(e1x0, e1x1, e2x0, e2x1):
+    if (e1x0 >= e2x0):
+        x0 = e1x0
+    else: x0 = e2x0
+    if (e1x1 > e2x1):
+        x1 = e2x1
+    else: x1 = e1x1
+    return [x0, x1]
+
+
+def overlapCalc(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
+    s
 
 def resultPrinter(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1):
     if(interseptCheck(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1)):
