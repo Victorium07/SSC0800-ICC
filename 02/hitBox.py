@@ -35,8 +35,8 @@ def areaOverlap(e1, e2):
     return listafinal
 
 def WordsOfRadiance(e1, e2):
-    if(interseptCheck(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1)):
-        print("HIT: {} {} {} {}".join(areaOverlap(e1x0, e1x1, e2x0, e2x1, e1y0, e1y1, e2y0, e2y1)))
+    if(interseptCheck(e1, e2)):
+        print("HIT: {} {} {} {}".join(areaOverlap(e1, e2)))
     else:
         print("MISS")
 
