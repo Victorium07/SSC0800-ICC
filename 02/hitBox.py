@@ -36,9 +36,12 @@ def interseptCheck(x1, x2, y1, y2):
         return False
 
 #comparação linear por fazer 
-# def linearCheck(x1, x2):
-#     if(x1[0] <= x2[]):
-#         a
+def linearCheck(reta1, reta2):
+    if((reta2[0] > reta1[1] and reta2[1] > reta1[1])
+       or ((reta1[0] < reta2[0]) and (reta1[0] < reta2[1]))):
+        return False
+    else: return True
+        
 
 #devolve qual é a sobreposição linear
 def linearOverlap(regiao_obj_1, regiao_obj_2):
