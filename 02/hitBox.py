@@ -1,15 +1,3 @@
-#Solção usando classes
-# class box:
-#     def __init__(self, entry):
-#         self.entry = entry
-
-#     def separator(self, x0, y0, x1, y1):
-#         data = self.split()
-#         self.x0 = data[0]
-#         self.y0 = data[1]
-#         self.x1 = data[2]
-#         self.y1 = data[3]
-
 #funções úteis
 
 #converte a lista de str em int
@@ -28,32 +16,24 @@ def coords(entrada):
     finalY = y[0] + y[1]
     return([x[0], finalX], [y[0], finalY])
 
-#avalia se há sobreposição
-def interseptCheck(x1, x2, y1, y2):
-    if(((x2[0] <= x1[1]) and (y2[0] <= y1[1])) or ((x2[0] >= x1[1]) and (y2[1] >= y1[0]))):
-        return True
-    else: 
-        return False
-
-#comparação linear por fazer 
+#Comparação linear ok!
 def linearCheck(reta1, reta2):
     if((reta2[0] > reta1[1] and reta2[1] > reta1[1])
-       or ((reta1[0] < reta2[0]) and (reta1[0] < reta2[1]))):
+       or ((reta1[0] > reta2[0]) and (reta1[0] > reta2[1]))):
         return False
-    else: return True
-        
+    else: return True        
 
 #devolve qual é a sobreposição linear
-def linearOverlap(regiao_obj_1, regiao_obj_2):
-    if (regiao_obj_1[0] >= regiao_obj_2[0]):
-        valorInicial = regiao_obj_1[0]
-    else: valorInicial = regiao_obj_2[0]
-    if (regiao_obj_1[1] >= regiao_obj_2[1]):
-        valorFinal = regiao_obj_2[1]
-        valorFinal = valorFinal - regiao_obj_1[1]
+def linearOverlap(reta1, reta2):
+    if (reta1[0] >= reta2[0]):
+        valorInicial = reta1[0]
+    else: valorInicial = reta2[0]
+    if (reta1[1] >= reta2[1]):
+        valorFinal = reta2[1]
+        valorFinal = valorFinal - valorInicial
     else: 
-        valorFinal = regiao_obj_1[1]
-        valorFinal = valorFinal - regiao_obj_1[1]
+        valorFinal = reta1[1]
+        valorFinal = valorFinal - valorInicial
     return [valorInicial, valorFinal]
 
 #devolve as coordenadas da região de sobreposição no formato x_inicial, y_inicial, x_final, y_final
@@ -66,9 +46,16 @@ def hitBox(x1, x2, y1, y2):
 #função final que chama tudo
 def WordsOfRadiance(e1, e2):
     x1, y1 = coords(e1)
+    # print("Infos objeto 1:\n")
+    # o = "xi: "+str(x1[0])+" xf: "+str(x1[1])+" yi: "+str(y1[0])+" yf:"+str(y1[1])
+    # print(o)
     x2, y2 = coords(e2)
-    if(interseptCheck(x1, x2, y1, y2)):
-        print("HIT: {}".join(hitBox(x1, x2, y1, y2)))
+    # print("Infos objeto 2:\n")
+    # o = "xi: "+str(x2[0])+" xf: "+str(x2[1])+" yi: "+str(y2[0])+" yf:"+str(y2[1])
+    # print(o)
+
+    if(linearCheck(x1, x2) and linearCheck(y1, y2)):
+        print("HIT: "+" ".join(hitBox(x1, x2, y1, y2)))
     else:
         print("MISS")
 
