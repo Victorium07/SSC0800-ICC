@@ -46,13 +46,7 @@ def hitBox(x1, x2, y1, y2):
 #função final que chama tudo
 def WordsOfRadiance(e1, e2):
     x1, y1 = coords(e1)
-    # print("Infos objeto 1:\n")
-    # o = "xi: "+str(x1[0])+" xf: "+str(x1[1])+" yi: "+str(y1[0])+" yf:"+str(y1[1])
-    # print(o)
     x2, y2 = coords(e2)
-    # print("Infos objeto 2:\n")
-    # o = "xi: "+str(x2[0])+" xf: "+str(x2[1])+" yi: "+str(y2[0])+" yf:"+str(y2[1])
-    # print(o)
 
     if(linearCheck(x1, x2) and linearCheck(y1, y2)):
         print("HIT: "+" ".join(hitBox(x1, x2, y1, y2)))
