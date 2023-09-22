@@ -2,37 +2,14 @@
 
 #funções úteis:
 
+#coletando dados
 def coleta():
     entrada = list(map(int,input().split(' ')))
     totalCelulas = entrada[0]**2
     movimentos = entrada[1]
     return (totalCelulas, movimentos, entrada[0])
 
-def caminhoInverso(espacos, passos, lado):
-    posInicial = int(lado/2)
-    esquerda = 0
-    direita = 0
-    baixo = 0
-    cima = 0
-    contador = 1
-    for i in range(espacos - passos):
-        direcao = i%4
-        if(direcao == 0):
-            esquerda += contador
-        elif(direcao == 1):
-            baixo += contador
-            contador +=1
-        elif(direcao == 2):
-            direita += contador
-        else: 
-            cima += contador
-            contador +=1
-
-    lin = posInicial - esquerda + direita 
-    col = posInicial + baixo - cima
-    pos = (lin, col)
-    return pos
-
+#Devolve a mensagem com a posição do astronauta no sistema (coordenadas, se dentro da nave; mensagem padrão, se não)
 def caminhar(espacos, passos, lado):
     msg = ''
     if(espacos < passos):
@@ -44,6 +21,26 @@ def caminhar(espacos, passos, lado):
         pos_lin, pos_col = caminhoInverso(espacos, passos, lado)
         msg = f'O astronauta está na posição: {pos_lin, pos_col} \n'
     return msg
+
+#Devolve a posição do astronauta caso esteja dentro da nave
+def caminhoInverso(espacos, passos, lado):
+    posInicial = int(lado/2)
+    espacosRestantes = espacos - passos
+    horizontal, vertical = calculoPassos(espacosRestantes)
+    lin = posInicial + horizontal
+    col = posInicial + vertical
+    pos = (lin, col)
+    return pos
+
+#Devolve quantos passos em cada direção o astronauta deu
+def calculoPassos(espacosRestantes):
+    esquerda = 0
+    baixo = 0
+    direita = 0
+    cima = 0
+    horizontal = direita - esquerda
+    vertical = baixo - cima
+    return (horizontal, vertical)
 
 
 def checarMissao(espacos, passos):
