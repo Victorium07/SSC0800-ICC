@@ -3,19 +3,19 @@
 #funções úteis:
 
 def coleta():
-    entrada = input().slice(' ')
+    entrada = list(map(int,input().split(' ')))
     totalCelulas = entrada[0]**2
     movimentos = entrada[1]
-    return (totalCelulas, movimentos)
+    return (totalCelulas, movimentos, entrada[0])
 
-def caminhoInverso(espacos, passos):
-    posInicial = espacos/2 - 1
+def caminhoInverso(espacos, passos, lado):
+    posInicial = int(lado/2)
     esquerda = 0
     direita = 0
     baixo = 0
     cima = 0
     contador = 1
-    for i in range(espacos):
+    for i in range(espacos - passos):
         direcao = i%4
         if(direcao == 0):
             esquerda += contador
@@ -33,15 +33,15 @@ def caminhoInverso(espacos, passos):
     pos = (lin, col)
     return pos
 
-def caminhar(espacos, passos):
+def caminhar(espacos, passos, lado):
     msg = ''
     if(espacos < passos):
         pass
     elif(espacos == passos):
-        pos = espacos/2 - 1
+        pos = int(lado/2)
         msg = f'O astronauta está na posição: {pos, pos} \n'
     else: 
-        pos_lin, pos_col = caminhoInverso(espacos, passos)
+        pos_lin, pos_col = caminhoInverso(espacos, passos, lado)
         msg = f'O astronauta está na posição: {pos_lin, pos_col} \n'
     return msg
 
@@ -56,8 +56,8 @@ def checarMissao(espacos, passos):
     return msg
 
 def Oathbringer():
-    totEspacos, movimentos = coleta()
-    msg1 = caminhar(totEspacos, movimentos)
+    totEspacos, movimentos, lado = coleta()
+    msg1 = caminhar(totEspacos, movimentos, lado)
     msg2 = checarMissao(totEspacos, movimentos)
     print(msg1,msg2)
 
