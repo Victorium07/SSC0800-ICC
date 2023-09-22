@@ -14,23 +14,24 @@ def caminhoInverso(espacos, passos):
     direita = 0
     baixo = 0
     cima = 0
+    contador = 1
     for i in range(espacos):
         direcao = i%4
         if(direcao == 0):
-            esquerda += x
+            esquerda += contador
         elif(direcao == 1):
-            baixo += x
+            baixo += contador
+            contador +=1
         elif(direcao == 2):
-            direita += x+1
-        else: cima += x+1
-    lin = posInicial + esquerda - direita 
+            direita += contador
+        else: 
+            cima += contador
+            contador +=1
+
+    lin = posInicial - esquerda + direita 
     col = posInicial + baixo - cima
     pos = (lin, col)
     return pos
-
-
-
-
 
 def caminhar(espacos, passos):
     msg = ''
