@@ -18,22 +18,22 @@ def caminhar(espacos, passos, lado):
         pos = int(lado/2)
         msg = f'O astronauta está na posição: {pos, pos} \n'
     else: 
-        pos_lin, pos_col = caminhoInverso(espacos, passos, lado)
+        pos_lin, pos_col = inverterCaminho(espacos, passos, lado)
         msg = f'O astronauta está na posição: {pos_lin, pos_col} \n'
     return msg
 
 #Devolve a posição do astronauta caso esteja dentro da nave
-def caminhoInverso(espacos, passos, lado):
+def inverterCaminho(espacos, passos, lado):
     posInicial = int(lado/2)
     espacosRestantes = espacos - passos
-    horizontal, vertical = calculoPassos(espacosRestantes)
+    horizontal, vertical = calcularPassos(espacosRestantes)
     lin = posInicial + horizontal
     col = posInicial + vertical
     pos = (lin, col)
     return pos
 
 #Devolve quantos passos em cada direção o astronauta deu em cada direção
-def calculoPassos(espacosRestantes):
+def calcularPassos(espacosRestantes):
     fator = int(espacosRestantes/4)
     resto = espacosRestantes % 4
 
