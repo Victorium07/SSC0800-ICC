@@ -32,17 +32,21 @@ def caminhoInverso(espacos, passos, lado):
     pos = (lin, col)
     return pos
 
-#Devolve quantos passos em cada direção o astronauta deu
+#Devolve quantos passos em cada direção o astronauta deu em cada direção
 def calculoPassos(espacosRestantes):
+    fator = int(espacosRestantes/4)
+    resto = espacosRestantes % 4
+
     esquerda = 0
     baixo = 0
     direita = 0
     cima = 0
+
     horizontal = direita - esquerda
     vertical = baixo - cima
     return (horizontal, vertical)
 
-
+#Devolve mensagem sobre status da missão do astronauta
 def checarMissao(espacos, passos):
     msg = ''
     if(espacos == passos):
@@ -52,6 +56,7 @@ def checarMissao(espacos, passos):
     else: msg = f'Ainda faltam {espacos-passos} chamadas para a sua vez!'
     return msg
 
+#Chama a função completa
 def Oathbringer():
     totEspacos, movimentos, lado = coleta()
     msg1 = caminhar(totEspacos, movimentos, lado)
