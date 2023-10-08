@@ -31,9 +31,9 @@ def caminhar(espacos, passos, lado):
 def inverterCaminho(espacos, passos, lado):
     posInicial = int(lado/2)
     espacosRestantes = espacos - passos
-    horizontal, vertical = calcularPassos(espacosRestantes)
+    horizontal, vertical = calcularPassos(espacosRestantes, lado)
     if(lado%2 == 0):
-        lin = posInicial+1 + vertical
+        lin = posInicial + 1 + vertical
     else:
         lin = posInicial + vertical
     col = posInicial + horizontal
@@ -41,7 +41,7 @@ def inverterCaminho(espacos, passos, lado):
     return pos
 
 #Devolve quantos passos em cada direção o astronauta deu em cada direção
-def calcularPassos(espacosRestantes):
+def calcularPassos(espacosRestantes, lado):
     limInferior = int(math.sqrt(espacosRestantes))
     limInferiorQuadrado = int(limInferior**2)
     casasFinais = espacosRestantes - limInferiorQuadrado
@@ -50,23 +50,39 @@ def calcularPassos(espacosRestantes):
     verticalIncompleta = sum([1 for i in range(1, limInferior+1) if i <= casasFinais])
     adjHorizontalIncompleta = casasFinais - verticalIncompleta
 
-    if(limInferior%2 == 0):
-        direita = horizontalCompleta(2, limInferior)
-        baixo = direita - adjVerticalCompleta
-        cima = direita - limInferior + verticalIncompleta
-        esquerda = baixo + adjHorizontalIncompleta
-    else:
-        esquerda = horizontalCompleta(1, limInferior)
-        cima = esquerda - adjVerticalCompleta
-        baixo = esquerda - limInferior + verticalIncompleta
-        direita = cima + adjHorizontalIncompleta
+    if(lado%2 == 0):
+        if(limInferior%2 == 0):
+            esquerda = horizontalCompleta(2, limInferior)
+            cima = esquerda - adjVerticalCompleta
+            baixo = esquerda - limInferior + verticalIncompleta
+            direita = cima + adjHorizontalIncompleta
 
-    horizontal = direita - esquerda
-    vertical = baixo - cima
-    return (horizontal, vertical)
+        else:
+            direita = horizontalCompleta(1, limInferior)
+            baixo = direita - adjVerticalCompleta
+            cima = direita - limInferior + verticalIncompleta
+            esquerda = baixo + adjHorizontalIncompleta
+    
+    else:
+        if(limInferior%2 == 0):
+            direita = horizontalCompleta(2, limInferior)
+            baixo = direita - adjVerticalCompleta
+            cima = direita - limInferior + verticalIncompleta
+            esquerda = baixo + adjHorizontalIncompleta
+
+        else:
+            esquerda = horizontalCompleta(1, limInferior)
+            cima = esquerda - adjVerticalCompleta
+            baixo = esquerda - limInferior + verticalIncompleta
+            direita = cima + adjHorizontalIncompleta
+    
+    h = direita - esquerda
+    v = baixo - cima
+    return (h, v)
 
 def horizontalCompleta(comeco, final):
     return sum([i for i in range(comeco, final+2, 2)])
+    
 
 #Devolve mensagem sobre status da missão do astronauta
 def checarMissao(espacos, passos):
