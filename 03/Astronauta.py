@@ -30,6 +30,7 @@ def caminhar(espacos, passos, lado):
 #Devolve a posição do astronauta caso esteja dentro da nave
 def inverterCaminho(espacos, passos, lado):
     posInicial = int(lado/2)
+    print(posInicial)
     espacosRestantes = espacos - passos
     horizontal, vertical = calcularPassos(espacosRestantes, lado)
     if(lado%2 == 0):
@@ -46,31 +47,39 @@ def calcularPassos(espacosRestantes, lado):
     limInferiorQuadrado = int(limInferior**2)
     casasFinais = espacosRestantes - limInferiorQuadrado
 
-    adjVerticalCompleta = (int(limInferior/2) + 1)
-    verticalIncompleta = sum([1 for i in range(1, limInferior+1) if i <= casasFinais])
-    adjHorizontalIncompleta = casasFinais - verticalIncompleta
-
     if(lado%2 == 0):
+        verticalIncompleta = sum([1 for i in range(1, limInferior+1) if i <= casasFinais])
+        adjHorizontalIncompleta = casasFinais - verticalIncompleta
+
         if(limInferior%2 == 0):
+            adjVerticalCompleta = int(limInferior/2)
             esquerda = horizontalCompleta(2, limInferior)
             cima = esquerda - adjVerticalCompleta
             baixo = esquerda - limInferior + verticalIncompleta
             direita = cima + adjHorizontalIncompleta
 
         else:
+            adjVerticalCompleta = int(limInferior/2) + 1
             direita = horizontalCompleta(1, limInferior)
             baixo = direita - adjVerticalCompleta
             cima = direita - limInferior + verticalIncompleta
             esquerda = baixo + adjHorizontalIncompleta
+            print('dir: ', direita, '\nbaixo: ', baixo, '\ncima: ', cima, '\nesquerda: ', esquerda)
+            
     
-    else:
+    else:  
+        verticalIncompleta = sum([1 for i in range(1, limInferior+1) if i <= casasFinais])
+        adjHorizontalIncompleta = casasFinais - verticalIncompleta
+        
         if(limInferior%2 == 0):
+            adjVerticalCompleta = (int(limInferior/2))
             direita = horizontalCompleta(2, limInferior)
             baixo = direita - adjVerticalCompleta
             cima = direita - limInferior + verticalIncompleta
             esquerda = baixo + adjHorizontalIncompleta
 
         else:
+            adjVerticalCompleta = (int(limInferior/2) +1)
             esquerda = horizontalCompleta(1, limInferior)
             cima = esquerda - adjVerticalCompleta
             baixo = esquerda - limInferior + verticalIncompleta
