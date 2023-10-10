@@ -19,25 +19,24 @@ def caminhar(espacos, passos, lado):
     elif(espacos == passos):
         pos = int(lado/2)
         if(lado%2 == 0):
-            msg = f'O astronauta está na posição: {pos+1, pos} \n'
+            msg = f'O astronauta esta na posicao: {pos} {pos-1}\n'
         else:
-            msg = f'O astronauta está na posição: {pos, pos} \n'
+            msg = f'O astronauta esta na posicao: {pos} {pos}\n'
     else: 
         pos_lin, pos_col = inverterCaminho(espacos, passos, lado)
-        msg = f'O astronauta está na posição: {pos_lin, pos_col} \n'
+        msg = f'O astronauta esta na posicao: {pos_lin} {pos_col}\n'
     return msg
 
 #Devolve a posição do astronauta caso esteja dentro da nave
 def inverterCaminho(espacos, passos, lado):
     posInicial = int(lado/2)
-    print(posInicial)
     espacosRestantes = espacos - passos
     horizontal, vertical = calcularPassos(espacosRestantes, lado)
     if(lado%2 == 0):
-        lin = posInicial + 1 + vertical
+        col = posInicial -1 + horizontal
     else:
-        lin = posInicial + vertical
-    col = posInicial + horizontal
+        col = posInicial + horizontal
+    lin = posInicial + vertical
     pos = (lin, col)
     return pos
 
@@ -63,9 +62,7 @@ def calcularPassos(espacosRestantes, lado):
             direita = horizontalCompleta(1, limInferior)
             baixo = direita - adjVerticalCompleta
             cima = direita - limInferior + verticalIncompleta
-            esquerda = baixo + adjHorizontalIncompleta
-            print('dir: ', direita, '\nbaixo: ', baixo, '\ncima: ', cima, '\nesquerda: ', esquerda)
-            
+            esquerda = baixo + adjHorizontalIncompleta            
     
     else:  
         verticalIncompleta = sum([1 for i in range(1, limInferior+1) if i <= casasFinais])
@@ -108,6 +105,10 @@ def Oathbringer():
     totEspacos, movimentos, lado = coleta()
     msg1 = caminhar(totEspacos, movimentos, lado)
     msg2 = checarMissao(totEspacos, movimentos)
-    print(msg1,msg2)
+    if msg1 == '':
+        print(msg2)
+    else:
+        print(msg1, end='')
+        print(msg2)
 
 Oathbringer()
