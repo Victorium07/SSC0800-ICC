@@ -24,7 +24,7 @@ def pegarIndiceChar(_numCarac: int) -> int:
 
 # Devolve o caracter pós criptografia.
 def pegarCharAtual(_numCarac: int, _nIndex: int) -> str:
-    _caract = (1-checkMin(_numCarac))*chr(97 + _nIndex) + (checkMin(_numCarac))*chr(65 + _nIndex)
+    _caract = (1-checkMin(_numCarac))*chr(65 + _nIndex) + (checkMin(_numCarac))*chr(97 + _nIndex)
     return _caract
 
 # "rotaciona" um dado vetor.
