@@ -31,6 +31,7 @@ def checar_limites(_coords: list, _limites: tuple) -> bool:
     else: return True
 
 
+# finalizar função
 def mover_areia(_quadro: list, _coords: list, _limites: tuple) -> tuple:
     if(checar_limites(_coords, _limites)):
         pass
@@ -64,6 +65,14 @@ def imprimir_quadro_atual(_quadro: list) -> bool:
     return 0
 
 
+def check_novo_bloco():
+        try:
+            novo_bloco = input().split()
+            return novo_bloco
+
+        except EOFError:
+            return [False]
+
 def WindAndTurth():
     total_frames = entrada()
     lins = 32
@@ -71,12 +80,13 @@ def WindAndTurth():
     dimesao_inicial = (lins, cols)
     quadro = gerador_quadro_inicial(dimesao_inicial)
     for frame in range(total_frames):
-        try:
-            update = input().split()
-            #separar entrada e coordenadas novas
-        except EOFError:
-            pass
-        else:
-            pass
-        finally:
-            pass
+        alavanca_frame = True
+        while alavanca_frame:
+            infos_novo_bloco = check_novo_bloco()
+            if (infos_novo_bloco[0] == 0):
+                alavanca_frame = infos_novo_bloco[0]
+                break
+            
+            
+
+        
