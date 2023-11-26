@@ -47,8 +47,12 @@ def pegar_limites(_quadro: list) -> tuple:
     return limites
 
 def checar_limites(_coords: list, _limites: tuple) -> bool:
-    if(_coords[0]-1 > _limites[0]): return False
-    elif(_coords[1]-1 >_limites[1]): return False
+    if(_coords[0]+1 > _limites[0]-1): return False
+    elif(_coords[1]+1 >_limites[1]-1): return False
+    else: return True
+
+def checar_limite_linear(_coord: int, _limite: int) -> bool:
+    if(_coord > _limite): return False
     else: return True
 
 def atualizar_quadro_atual(_quadro: list) -> list:
@@ -74,17 +78,40 @@ def imprimir_quadro_atual(_quadro: list, _frame: int) -> bool:
 ## funções de física:
 # finalizar função
 def mover_elemento(_quadro: list, elemento: str, _coords: list) -> list:
-    if(check_ar(_quadro[_coluna][_linha])):
+    linha = _coords[0]
+    coluna = _coords[1]
+    limites = pegar_limites(_quadro)
+    lim_linha = limites[0]
+    lim_coluna = limites[1]
+    if(check_ar(_quadro[coluna][linha])):
         return 0
-    elif(check_areia(_quadro[_coluna][_linha])):
-        limites = pegar_limites(_quadro)
-        if(checar_limites())
+    elif(check_areia(_quadro[coluna][linha])):
+        #check se tem espaço para baixo, caso negativo: areia não se move.
+        if(checar_limite_linear(linha+1, lim_linha)):
+            return 0
+        # mover areia
+        mover_areia()
+    else: 
+        #check se tem espaço para baixo, caso negativo: aǵua se move apenas para os lados.
+        if(checar_limite_linear(linha+1, lim_linha)):
+            continue
+        if(checar_limite_linear(coluna-1, lim_coluna)):
+            continue
+        if(checar_limite_linear(coluna+1, lim_coluna)):
+            return 0
+        
 
-    else:
-        pass
-
-def mover_areia():
-    pass
+def mover_areia(_quadro: list, _linha: int, _coluna: int) -> list:
+    if(check_areia(_quadro[_coluna][_linha+1]) == False):
+        _quadro[_coluna][_linha], _quadro[_coluna][_linha+1] == _quadro[_coluna][_linha+1], _quadro[_coluna][_linha]
+        return 0
+    elif(check_areia(_quadro[coluna-1][linha+1]) == False):
+        _quadro[_coluna][_linha], _quadro[_coluna-1][_linha+1] == _quadro[_coluna-1][_linha+1], _quadro[_coluna][_linha]
+        return 0
+    elif(check_areia(_quadro[coluna+1][linha+1]) == False):
+        _quadro[_coluna][_linha], _quadro[_coluna+1][_linha+1] == _quadro[_coluna+1][_linha+1], _quadro[_coluna][_linha]
+        return 0
+    else: return 0
 
 def check_ar(elemento: str) -> bool:
     if(elemento == ''): return True
