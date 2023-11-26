@@ -25,6 +25,7 @@ def check_novo_bloco(_total_frames):
         except EOFError:
             return _total_frames+1
 
+
 ## funções de atualização de quadro:
 def gerador_quadro_inicial(_tuple:tuple) -> list:
     quadro = [' ' * _tuple[1] for _ in range(_tuple[0])]
@@ -45,6 +46,46 @@ def pegar_limites(_quadro: list) -> tuple:
     limites = (lim_linhas, lim_colunas)
     return limites
 
+def checar_limites(_coords: list, _limites: tuple) -> bool:
+    if(_coords[0]-1 > _limites[0]): return False
+    elif(_coords[1]-1 >_limites[1]): return False
+    else: return True
+
+def atualizar_quadro_atual(_quadro: list) -> list:
+    _linhas = len(_quadro[0])
+    _colunas = len(_quadro[1])
+    for _linha in range(_linhas):
+        for _coluna in range(colunas):
+            elem = _quadro[_coluna][_linha]
+            coords = [_linha, _coluna]
+            mover_elemento(_quadro, elem, coords)
+    return 0
+
+def imprimir_quadro_atual(_quadro: list, _frame: int) -> bool:
+    _colunas = len(_quadro[1])
+    _linhas = len(_quadro[0])
+    print(f'frame: {_frame}')
+    for _coluna in range(_colunas):
+        for _linha in range(_linhas):
+            print(_quadro[_coluna][_linha], end='')
+        print()
+    return 0
+
+## funções de física:
+# finalizar função
+def mover_elemento(_quadro: list, elemento: str, _coords: list) -> list:
+    if(check_ar(_quadro[_coluna][_linha])):
+        return 0
+    elif(check_areia(_quadro[_coluna][_linha])):
+        limites = pegar_limites(_quadro)
+        if(checar_limites())
+
+    else:
+        pass
+
+def mover_areia():
+    pass
+
 def check_ar(elemento: str) -> bool:
     if(elemento == ''): return True
     else: return False
@@ -53,49 +94,6 @@ def check_areia(elemento: str) -> bool:
     if(elemento == '#'): return True
     else: return False
 
-def checar_limites(_coords: list, _limites: tuple) -> bool:
-    if(_coords[0]-1 > _limites[0]): return False
-    elif(_coords[1]-1 >_limites[1]): return False
-    else: return True
-
-
-
-## funções de física:
-# finalizar função
-def mover_areia(_quadro: list, _coords: list) -> tuple:
-    limites = pegar_limites(_quadro)
-    if(checar_limites(_coords, limites)):
-        pass
-    elif(check_areia(_quadro[_coords[1]-1][_coords[0]+1])):
-        pass
-    elif(check_areia(_quadro[_coords[1]+1][_coords[0]+1])):
-        pass
-    else:
-        pass
-
-
-def atualizar_quadro_atual(_quadro: list) -> list:
-    colunas = len(_quadro)
-    linhas = len(_quadro[0])
-    for linha in range(linhas):
-        for coluna in range(colunas):
-            if(check_ar(_quadro[coluna][linha])):
-                continue
-            if(check_areia(_quadro[coluna][linha])):
-                continue
-    return 0
-
-
-def imprimir_quadro_atual(_quadro: list, _frame: int) -> bool:
-    colunas = len(_quadro[1])
-    linhas = len(_quadro[0])
-    print(f'frame: {_frame}')
-    for coluna in range(colunas):
-        for linha in range(linhas):
-            print(_quadro[coluna][linha], end='')
-        print()
-    return 0
-
 
 def WindAndTurth():
     total_frames = entrada_frames()
@@ -103,12 +101,18 @@ def WindAndTurth():
     cols = 64
     dimesao_inicial = (lins, cols)
     quadro_atual = gerador_quadro_inicial(dimesao_inicial)
-    frame_atual = 0
+    frame_anterior = 0
     while frame_atual =< total_frames:
         infos_novo_bloco = check_novo_bloco()
         frame_atual = infos_novo_bloco[0]
         coords_elemento = infos_novo_bloco[1:len(infos_novo_bloco)-1]
         novo_quadro = adicionar_elemento(quadro_atual, coords_elemento)
         if(novo_quadro = 0):
-            return False
+            break
+        if(frame_atual > frame_anterior):
+           frame_anterior = frame_atual
+           #ativar física
+           #printar quadro
+           pass 
+
         
