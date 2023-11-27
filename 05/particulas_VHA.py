@@ -83,35 +83,82 @@ def mover_elemento(_quadro: list, elemento: str, _coords: list) -> list:
     limites = pegar_limites(_quadro)
     lim_linha = limites[0]
     lim_coluna = limites[1]
+    graus_liberdade = check_lados(_coords, limites)
     if(check_ar(_quadro[coluna][linha])):
         return 0
     elif(check_areia(_quadro[coluna][linha])):
-        #check se tem espaço para baixo, caso negativo: areia não se move.
-        if(checar_limite_linear(linha+1, lim_linha)):
+        if(graus_liberdade % 2):
+            mover_areia()
+        else: 
             return 0
-        # mover areia
-        mover_areia()
     else: 
-        #check se tem espaço para baixo, caso negativo: aǵua se move apenas para os lados.
-        if(checar_limite_linear(linha+1, lim_linha)):
-            continue
-        if(checar_limite_linear(coluna-1, lim_coluna)):
-            continue
-        if(checar_limite_linear(coluna+1, lim_coluna)):
-            return 0
-        
+        if(graus_liberdade % 2):
+            #testa tudo
+        else:
+            #move lateralmente
 
-def mover_areia(_quadro: list, _linha: int, _coluna: int) -> list:
+
+def check_lados(_coords: list, _limites: list) -> int:
+    graus_de_liberdade = 0
+    if(!checar_limite_linear(_coords[0]+1, _limites[0])):
+        graus_de_liberdade += 1
+    if(!checar_limite_linear(_coords[1]-1, _limites[1])):
+        graus_de_liberdade += 2
+    if(!checar_limite_linear(_coords[1]+1, _limites[1])):
+        graus_de_liberdade += 4
+    return graus_de_liberdade
+
+def mover_areia(_quadro: list, _linha: int, _coluna: int) -> 0:
     if(check_areia(_quadro[_coluna][_linha+1]) == False):
         _quadro[_coluna][_linha], _quadro[_coluna][_linha+1] == _quadro[_coluna][_linha+1], _quadro[_coluna][_linha]
         return 0
     elif(check_areia(_quadro[coluna-1][linha+1]) == False):
-        _quadro[_coluna][_linha], _quadro[_coluna-1][_linha+1] == _quadro[_coluna-1][_linha+1], _quadro[_coluna][_linha]
-        return 0
+        try:
+            _quadro[_coluna][_linha], _quadro[_coluna-1][_linha+1] == _quadro[_coluna-1][_linha+1], _quadro[_coluna][_linha]
+            return 0
+        except:
+            continue
     elif(check_areia(_quadro[coluna+1][linha+1]) == False):
-        _quadro[_coluna][_linha], _quadro[_coluna+1][_linha+1] == _quadro[_coluna+1][_linha+1], _quadro[_coluna][_linha]
-        return 0
+        try:    
+            _quadro[_coluna][_linha], _quadro[_coluna+1][_linha+1] == _quadro[_coluna+1][_linha+1], _quadro[_coluna][_linha]
+            return 0
+        except:
+            continue
     else: return 0
+
+def mover_agua(_quadro: list, _linha: int, _coluna: int, _graus_lib: int) -> 0:
+    if(graus_liberdade % 2):
+        if(check_ar(_quadro[_coluna][_linha+1]) == True):
+            _quadro[_coluna][_linha], _quadro[_coluna][_linha+1] == _quadro[_coluna][_linha+1], _quadro[_coluna][_linha]
+            return 0
+        elif(check_ar(_quadro[coluna-1][linha+1]) == True):
+            try:
+                _quadro[_coluna][_linha], _quadro[_coluna-1][_linha+1] == _quadro[_coluna-1][_linha+1], _quadro[_coluna][_linha]
+                return 0
+            except:
+                continue
+        elif(check_ar(_quadro[coluna+1][linha+1]) == True):
+            try:    
+                _quadro[_coluna][_linha], _quadro[_coluna+1][_linha+1] == _quadro[_coluna+1][_linha+1], _quadro[_coluna][_linha]
+                return 0
+            except:
+                continue
+        else: return 0
+    else:
+        if(check_ar(_quadro[coluna-1][linha+1]) == True):
+            try:
+                _quadro[_coluna][_linha], _quadro[_coluna-1][_linha] == _quadro[_coluna-1][_linha], _quadro[_coluna][_linha]
+                return 0
+            except:
+                continue
+        elif(check_ar(_quadro[coluna+1][linha+1]) == True):
+            try:    
+                _quadro[_coluna][_linha], _quadro[_coluna+1][_linha] == _quadro[_coluna+1][_linha], _quadro[_coluna][_linha]
+                return 0
+            except:
+                continue
+        else: return 0
+
 
 def check_ar(elemento: str) -> bool:
     if(elemento == ''): return True
