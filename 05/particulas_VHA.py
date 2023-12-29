@@ -77,25 +77,22 @@ def imprimir_quadro_atual(_quadro: list, _frame: int) -> bool:
 
 ## funções de física:
 # finalizar função
-def mover_elemento(_quadro: list, elemento: str, _coords: list) -> list:
+def mover_elemento(_quadro: list, elemento: str, _coords: list) -> 0:
     linha = _coords[0]
     coluna = _coords[1]
     limites = pegar_limites(_quadro)
     lim_linha = limites[0]
     lim_coluna = limites[1]
     graus_liberdade = check_lados(_coords, limites)
-    if(check_ar(_quadro[coluna][linha])):
-        return 0
+    if(check_ar(_quadro[coluna][linha])): return 0
     elif(check_areia(_quadro[coluna][linha])):
         if(graus_liberdade % 2):
-            mover_areia()
-        else: 
+            mover_areia(_quadro, linha, coluna)
             return 0
+        else: return 0
     else: 
-        if(graus_liberdade % 2):
-            #testa tudo
-        else:
-            #move lateralmente
+        mover_agua(_quadro, linha, coluna, graus_liberdade)
+        return 0
 
 
 def check_lados(_coords: list, _limites: list) -> int:
@@ -159,7 +156,6 @@ def mover_agua(_quadro: list, _linha: int, _coluna: int, _graus_lib: int) -> 0:
                 continue
         else: return 0
 
-
 def check_ar(elemento: str) -> bool:
     if(elemento == ''): return True
     else: return False
@@ -185,8 +181,7 @@ def WindAndTurth():
             break
         if(frame_atual > frame_anterior):
            frame_anterior = frame_atual
+           mover_elemento()
            #ativar física
            #printar quadro
            pass 
-
-        
